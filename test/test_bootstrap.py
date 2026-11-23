@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -6,10 +7,19 @@ import tempfile
 import unittest
 
 
-BOOTSTRAP = Path(__file__).resolve().parents[1] / "plugins/afr-for-codex/runtime/bootstrap.py"
+PLUGIN = Path(__file__).resolve().parents[1] / "plugins/afr-for-codex"
+BOOTSTRAP = PLUGIN / "runtime/bootstrap.py"
 
 
 class BootstrapTests(unittest.TestCase):
+    def test_portable_mcp_uses_packaged_executable(self):
+        manifest = json.loads((PLUGIN / "mcp.json").read_text(encoding="utf-8"))
+        command = manifest["mcpServers"]["afr"]["command"]
+        self.assertTrue(command.startswith("./"))
+        executable = (PLUGIN / command).resolve(strict=True)
+        self.assertTrue(executable.is_relative_to(PLUGIN))
+        self.assertTrue(os.access(executable, os.X_OK))
+
     def test_does_not_provision_dependencies_in_a_foreign_state_root(self):
         with tempfile.TemporaryDirectory() as folder:
             state = Path(folder) / "foreign-state"
