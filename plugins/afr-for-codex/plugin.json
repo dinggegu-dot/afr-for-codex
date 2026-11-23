@@ -1,0 +1,18 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "afr-for-codex",
+  "version": "0.1.0",
+  "description": "在 Codex 中整理本机研报，生成 Obsidian 白板和完整阅读，并按固定来源回查。",
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "onboardingSkill": "./skills/afr/SKILL.md",
+      "interface": {
+        "displayName": "AFR for Codex",
+        "shortDescription": "把研报整理成 Obsidian 白板和研究问题",
+        "category": "Productivity",
+        "defaultPrompt": ["设置 AFR，选择研报文件夹和 Obsidian 库。"]
+      }
+    }
+  }
+}

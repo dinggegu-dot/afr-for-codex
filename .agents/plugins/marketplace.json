@@ -1,0 +1,20 @@
+{
+  "name": "afr-marketplace",
+  "interface": {
+    "displayName": "Atom Flow Research"
+  },
+  "plugins": [
+    {
+      "name": "afr-for-codex",
+      "source": {
+        "source": "local",
+        "path": "./plugins/afr-for-codex"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
